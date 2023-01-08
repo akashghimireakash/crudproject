@@ -1,0 +1,15 @@
+    <thead id="thead">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Action</th>
+            <th scope="col">select</th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+        {% for st in stu  %}
+        {% include 'enroll/row.html' with st=st %}
+        {% endfor %}
+    </tbody>
+

@@ -1,0 +1,19 @@
+<tr id="stu_{{st.id}}" class="trow">
+            
+    <th scope="row">{{st.id}}</th>
+    <td>{{st.name}}</td>
+    <td>{{st.email}}</td>
+    <td>
+        <a href="{% url 'update' st.id %}" class="btn btn-warning">Edit</a>
+        <form hx-post="{% url 'delete' st.id %}" hx-confirm="Are You Sure?" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="#stu_{{st.id}}" hx-swap="delete">
+            {% csrf_token %}
+            <input type="submit" value="delete">
+        </form>
+        <td>
+            <input type="checkbox" name="delete" value="{{st.id}}" id="del" class="del">
+        </td>
+        
+    </td>
+    
+    
+</tr>

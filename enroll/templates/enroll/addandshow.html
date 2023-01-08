@@ -1,0 +1,50 @@
+{% extends 'enroll/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-4">
+            <h4>add new student</h4>
+            <form hx-post="{% url 'addandshow' %}" hx-target="#table" hx-swap="beforeend" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="Add">
+            </form>
+        </div>
+        <div class="col-sm-8">
+            <h4>Show student</h4>
+            {% if stu %}
+                <table class="table table-hover" id="table">
+                    {% include 'enroll/table.html' with stu=stu %}
+                </table>
+                <button type="button" hx-post="{% url 'deleteall' %}" hx-confirm="Are You Sure?"  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="#table" hx-swap="innerHTML">Delete All</button>
+                
+                <button type="button" hx-post="{% url 'deleteselected' %}" hx-confirm="Are You Sure?" hx-include="[name='delete']" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="#table" hx-swap="innerHTML">Delete Selected</button>
+            
+            {% else %}
+                <table class="table table-hover" id="table">
+                    <thead id="thead">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">select</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                       
+                    </tbody>
+                </table>
+                <button type="button" hx-post="{% url 'deleteall' %}" hx-confirm="Are You Sure?" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="#table" hx-swap="innerHTML">Delete All</button>
+                <button type="button" hx-post="{% url 'deleteselected' %}" hx-confirm="Are You Sure?" hx-include="[name='delete']" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="#table" hx-swap="innerHTML">Delete Selected</button>
+            {% endif %}
+
+        
+                
+            </form>
+        </div>
+    </div>
+    
+
+
+{% endblock content %}
