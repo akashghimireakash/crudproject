@@ -15,10 +15,9 @@ def addand_show(request):
             pw= fm.cleaned_data['password']
             reg= User(name=nm, email=em, password=pw)
             reg.save()
-            fm=StudentRegistration()
-            return render(request,'enroll/row.html',{'form':fm,'st':reg})
-            
-        
+            response = render(request,'enroll/row.html',{'form':fm,'st':reg})
+            response['HX-Trigger']='formReset'
+            return response
     else:
         fm=StudentRegistration()
     
